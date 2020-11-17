@@ -1,0 +1,14 @@
+Package: SSGLM
+Type: Package
+Title: State Space GLM toolbox for spike train analysis
+Version: 0.0.1
+Date: 2018-10-30
+Authors@R: person("Jacob", "Ostergaard", email = "ostergaard@math.ku.dk", role = c("aut", "cre"))
+Description: The main feature of this toolbox is a marginalized particle filter for inhomogeneous Poisson processes, as used to analyze spike trains.
+Depends: R(>= 3.4.0)
+License: GPL-3
+LazyData: TRUE
+Imports: Rcpp (>= 0.11.0), signal, Matrix, doParallel, doMC, glmnet
+LinkingTo: Rcpp, RcppArmadillo
+Suggests: 
+    testthat

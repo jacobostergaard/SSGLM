@@ -1,0 +1,5 @@
+exportPattern("^[[:alpha:]]+")
+useDynLib(SSGLM)
+import(RcppArmadillo)
+importFrom(Rcpp, evalCpp)
+import(Matrix)
