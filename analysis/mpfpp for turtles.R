@@ -10,42 +10,10 @@ set.seed(1234)
 # list.files(datalib)
 
 #### Scrip below ####
+fn = "data/turtles.Rda"
+load(fn)
 
-
-# Load turtle spike trians
-dat = R.matlab::readMat(icloud_lib("GitHub/Source/R/Extracellular triggered EPSP/ExtracellularUnits.mat")) #okay
-turtles = list()
-for(i in 1:249)
-  eval(parse( text=paste0("turtles$n",i," <- dat$units[[1]][[i]][[1]]") ))
-
-
-ntrains = length(turtles)
-
-# Convert spike times to seconds
-tosec   = 2.5e-5
-for(i in 1:ntrains)
-  turtles[[i]] = turtles[[i]]*tosec
-
-# Pick neurons to analyze
-get_spiketimes <- function(i){
-  out = list()
-  tmp = turtles[[i]]
-  tmp = tmp[tmp>0]    # remove trailing zeros
-  for(j in 1:10){
-    x = tmp[tmp>40*(j-1) & tmp<40*j]-(j-1)*40
-    out[[j]] = x
-  }
-  return(out)
-}
-
-
-trials = list()
-for(i in 1:ntrains){
-  trials[[i]] = get_spiketimes(i)
-}
-names(trials) = paste0("n",1:ntrains)
-
-
+ntrains = length(trials)
 spks_in_trials = matrix(unlist(lapply(trials,function(x) unlist(lapply(x,length)))), nr=ntrains,nc=10, byrow=TRUE)
 
 isi = unlist(lapply(trials, function(x) lapply(x, diff)))
